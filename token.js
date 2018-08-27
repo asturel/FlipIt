@@ -23,10 +23,14 @@ class Token {
     }
 
     static decrypt(token) {
-        const cipher = crypto.createDecipher(algorithm, secret);
-        let decrypted = cipher.update(token, 'hex', 'utf-8');
-        decrypted += cipher.final('utf-8');
-        return decrypted;
+        try {
+            const cipher = crypto.createDecipher(algorithm, secret);
+            let decrypted = cipher.update(token, 'hex', 'utf-8');
+            decrypted += cipher.final('utf-8');
+            return decrypted;
+        } catch (_) {
+            return null;
+        }
     }
 };
 
