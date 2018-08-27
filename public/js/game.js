@@ -3,37 +3,32 @@ const nameField = document.getElementById('name');
 const sizeField = document.getElementById('size');
 window.game = {};
 
-const startGame = config => new Promise((resolve, reject) => {
+const startGame = config => {
     if (config.size % 2 !== 0) {
-        return reject('Invalid size');
+        return Promise.reject('Invalid size');
     }
-    fetch(`/game/${config.size}`, {
+    return fetch(`/game/${config.size}`, {
             mode: 'cors'
         })
-        .then(response => response.ok ? response.json() : Promise.reject(response.statusText))
-        .then(resolve)
-        .catch(reject);
-});
+        .then(response => response.ok ? response.json() : Promise.reject(response.statusText));
+};
 
 
-const endGame = (stats) => new Promise((resolve, reject) => {
-    const score = {
-        steps: stats.steps,
-        token: stats.token,
-        seconds: stats.seconds,
-        name: stats.name
-    };
-    fetch('/score', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            body: JSON.stringify(score)
+const endGame = (stats) => fetch('/score', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        body: JSON.stringify({
+            steps: stats.steps,
+            token: stats.token,
+            seconds: stats.seconds,
+            name: stats.name
         })
-        .then(response => response.ok ? resolve() : reject())
-        .catch(reject);
-});
+    })
+    .then(response => response.ok ? Promise.resolve() : Promise.reject());
+
 
 
 /**
