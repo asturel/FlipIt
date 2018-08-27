@@ -40,6 +40,11 @@ class IRepository {
  */
 const gameRepository = new Repository('token', 'game');
 
+/**
+ * @type IRepository
+ */
+const scoreRepository = new Repository('token', 'score');
+
 
 /**
  * @name asyncHandler
@@ -82,6 +87,42 @@ app.get('/game/:size', asyncHandler(async (req, res) => {
             console.error(err);
             res.sendStatus(500);
         }
+    }
+}));
+
+app.post('/score', asyncHandler(async (req, res) => {
+    const scoreReq = req.body;
+    if (!scoreReq || !scoreReq.token || !scoreReq.steps || !scoreReq.seconds) {
+        res.sendStatus(400);
+    } else {
+        const id = Token.decrypt(scoreReq.token);
+        if (!id) {
+            res.sendStatus(400);
+        } else {
+            try {
+                await scoreRepository.insert(scoreReq);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        }
+    }
+}));
+
+app.get('/score', asyncHandler(async (_, res) => {
+    try {
+        let scores = await scoreRepository.items;
+        scores.sort((a, b) => a.seconds - b.seconds);
+        res.send(scores.map(score => { // encapsulate token
+            return {
+                seconds: score.seconds,
+                steps: score.steps,
+                name: score.name
+            };
+        }));
+    } catch (err) {
+        console.error(err);
+        res.sendStatus(500);
     }
 }));
 
