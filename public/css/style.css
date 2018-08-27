@@ -1,0 +1,38 @@
+.start,
+.card {
+    font-weight: 700;
+}
+.start {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 0;
+    padding: 1rem;
+    background: #054774;
+    color: #fff;
+}
+
+.card,
+.card-placeholder {
+    display: inline-block;
+    vertical-align: top;
+    width: 6rem;
+    height: 6rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    font-size: 3rem;
+}
+.card-placeholder {
+    border: 0;
+    font-size: 0;
+    box-shadow: none;
+    pointer-events: none;
+    background: transparent;
+}
+
+input {
+    margin: 0 auto 0 0;
+    padding: 1rem;
+    font-size: 1rem;
+}
