@@ -1,0 +1,26 @@
+{
+  "name": "flipit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asturel/FlipIt.git"
+  },
+  "keywords": [
+    "flipit"
+  ],
+  "author": "Lajos Pacsek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asturel/FlipIt/issues"
+  },
+  "homepage": "https://github.com/asturel/FlipIt#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "pug": "^2.0.3"
+  }
+}
